@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Personality Color</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      transition:1s;
+      overflow:hidden;
+      background:linear-gradient(135deg,#dfe9f3,#ffffff);
+    }
+
+    .container{
+      text-align:center;
+      background:rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding:40px;
+      border-radius:25px;
+      width:90%;
+      max-width:500px;
+      color:white;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
+      z-index:2;
+    }
+
+    h1{
+      margin-bottom:15px;
+      font-size:35px;
+    }
+
+    p{
+      margin-bottom:20px;
+      font-size:17px;
+    }
+
+    input{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:15px;
+      font-size:18px;
+      outline:none;
+      text-align:center;
+    }
+
+    .message{
+      margin-top:20px;
+      font-size:20px;
+      font-weight:bold;
+    }
+
+    /* MODE MARAH */
+    .marah{
+      background:
+      radial-gradient(circle at top,#ff3b3b,#7a0000);
+      animation:shake 0.4s infinite alternate;
+    }
+
+    @keyframes shake{
+      from{ transform:translateX(-2px);}
+      to{ transform:translateX(2px);}
+    }
+
+    /* MODE TENANG */
+    .tenang{
+      background:linear-gradient(to bottom,#2c7be5,#6ec6ff);
+    }
+
+    .wave{
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:200%;
+      height:180px;
+      background:rgba(255,255,255,0.25);
+      border-radius:45%;
+      animation:waveMove 8s linear infinite;
+    }
+
+    .wave:nth-child(2){
+      bottom:20px;
+      opacity:0.5;
+      animation-duration:12s;
+    }
+
+    @keyframes waveMove{
+      0%{
+        transform:translateX(0);
+      }
+      100%{
+        transform:translateX(-50%);
+      }
+    }
+
+    /* MODE DEFAULT */
+    .default{
+      background:linear-gradient(135deg,#dfe9f3,#ffffff);
+    }
+  </style>
+</head>
+<body class="default">
+
+  <div class="wave" id="wave1" style="display:none;"></div>
+  <div class="wave" id="wave2" style="display:none;"></div>
+
+  <div class="container">
+    <h1>The Personality Color</h1>
+
+    <p>
+      Ketik satu kata tentang perasaanmu hari ini ✨
+    </p>
+
+    <input 
+      type="text" 
+      id="feelingInput" 
+      placeholder="Contoh: marah / tenang"
+    >
+
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const input = document.getElementById("feelingInput");
+    const body = document.body;
+    const message = document.getElementById("message");
+
+    const wave1 = document.getElementById("wave1");
+    const wave2 = document.getElementById("wave2");
+
+    input.addEventListener("input", () => {
+      let value = input.value.toLowerCase().trim();
+
+      body.className = "";
+      wave1.style.display = "none";
+      wave2.style.display = "none";
+
+      if(value === "marah"){
+        body.classList.add("marah");
+        message.innerHTML = "🔥 Energi emosimu sangat kuat hari ini!";
+      }
+
+      else if(value === "tenang"){
+        body.classList.add("tenang");
+        wave1.style.display = "block";
+        wave2.style.display = "block";
+        message.innerHTML = "🌊 Kamu sedang merasa damai dan tenang.";
+      }
+
+      else{
+        body.classList.add("default");
+        message.innerHTML = "✨ Tulis perasaanmu untuk melihat warna kepribadian.";
+      }
+    });
+  </script>
+
+</body>
+</html>
